@@ -5,7 +5,6 @@ var Movie = Backbone.Model.extend({
   },
 
   toggleLike: function() {
-
     var currState = this.get('like');
     this.set('like', !currState);
   }
@@ -17,13 +16,17 @@ var Movies = Backbone.Collection.extend({
   model: Movie,
 
   initialize: function() {
-    // your code here
+    this.on('change', this.sort);
   },
 
   comparator: 'title',
 
   sortByField: function(field) {
-    // this.set('comparator', field);
+    console.log('Before comparator: ' + this.comparator);
+    this.comparator = field;
+    console.log('After comparator: ' + this.comparator);
+    this.sort(); // How do we set up a listener for a
+    // collection property up in the initialize method?
   }
 
 });
